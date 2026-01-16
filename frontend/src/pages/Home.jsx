@@ -1,28 +1,62 @@
-import React from "react"
+import React, { useState } from "react"
+import Hero from "../components/Hero"
+import PlaceCard from "../components/PlaceCard"
 
 export default function Home() {
-  // مثال بيانات أماكن افتراضية
   const places = [
     { id: 1, name: "Cozy Apartment", location: "Paris", price: 120 },
     { id: 2, name: "Modern Loft", location: "Berlin", price: 150 },
     { id: 3, name: "Beach House", location: "Barcelona", price: 200 },
+    { id: 4, name: "Mountain Cabin", location: "Switzerland", price: 180 },
   ]
 
-  return (
-    <div style={{ padding: "40px" }}>
-      <h2>Welcome to Mini Airbnb</h2>
-      <p>Discover amazing places to stay!</p>
+  const [search, setSearch] = useState("")
+  const [maxPrice, setMaxPrice] = useState("")
 
-      <div>
-        {places.map((place) => (
-          <div key={place.id} style={{ border: "1px solid #ccc", margin: "10px 0", padding: "10px" }}>
-            <h3>{place.name}</h3>
-            <p>Location: {place.location}</p>
-            <p>Price per night: ${place.price}</p>
-          </div>
-        ))}
+  const filteredPlaces = places.filter((place) => {
+    const matchesSearch = place.name.toLowerCase().includes(search.toLowerCase())
+    const matchesPrice = maxPrice === "" || place.price <= Number(maxPrice)
+    return matchesSearch && matchesPrice
+  })
+
+  return (
+    <>
+      {/* Hero Section */}
+      <Hero />
+
+      {/* Main Content */}
+      <div className="home-container">
+        <h2>Explore places</h2>
+        <p>Find the perfect stay for your next trip</p>
+
+        {/* Search & Filter */}
+        <div className="filters">
+          <input
+            type="text"
+            placeholder="Search by name..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          <input
+            type="number"
+            placeholder="Max price"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(e.target.value)}
+          />
+        </div>
+
+        {/* Places */}
+        <div className="places-grid">
+          {filteredPlaces.length > 0 ? (
+            filteredPlaces.map((place) => (
+              <PlaceCard key={place.id} place={place} />
+            ))
+          ) : (
+            <p>No places found.</p>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
-

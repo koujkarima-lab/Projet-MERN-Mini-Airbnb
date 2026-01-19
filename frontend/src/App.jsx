@@ -6,6 +6,7 @@ import Footer from "./components/Footer"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
+import PlaceDetails from "./pages/PlaceDetails"
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/places/:id" element={<PlaceDetails />} />
       </Routes>
 
       <Footer />

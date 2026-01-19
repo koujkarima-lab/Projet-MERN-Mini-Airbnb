@@ -6,9 +6,10 @@ const placeSchema = new mongoose.Schema(
     location: { type: String, required: true },
     price: { type: Number, required: true },
     description: { type: String },
-    image: { type: String }, // رابط الصورة
+    image: { type: String }, // رابط الصورة أو اسم الملف
   },
   { timestamps: true }
 )
 
-export default mongoose.model("Place", placeSchema)
+const Place = mongoose.model("Place", placeSchema)
+export default Place

@@ -16,6 +16,10 @@ export default function Home() {
 
   return (
     <>
+          <h1 className="text-6xl font-bold text-red-500 text-center mt-20">
+        Tailwind OK
+      </h1>
+
       <Hero />
 
       <div className="home-container">
